@@ -1,0 +1,281 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+/* body {
+  @apply font-poppins overflow-x-hidden;
+} */
+.nav-item {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add the animated underline on hover */
+.nav-item::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px; /* Set your preferred underline thickness */
+  background-color: #ff365a; /* Set your preferred underline color */
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-in-out; /* Adjust the transition duration and timing function as needed */
+}
+
+.nav-item:hover::before {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.fade-up-enter-active {
+  transition: opacity 0.5s, transform 0.8s;
+}
+
+.fade-up-enter-active-large {
+  transition: opacity 0.5s, transform 0.8s;
+}
+
+.fade-up-enter-from {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.fade-up-enter-to {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.hero-overlay {
+  @apply absolute top-0 left-0 w-full h-[80vh] xl:h-[100vh];
+}
+
+.techSwiper {
+  @apply h-[100%] w-full;
+}
+
+.techSwiper .swiper-wrapper {
+  padding-bottom: 10px;
+  padding-top: 25px;
+}
+
+
+.contact-input {
+  border: none;
+  background-color: #F3F3F3 ;
+  border-bottom: 3px solid #2e02494d; /* Set the color of the bottom border */
+  outline: none;
+}
+.contact-input:focus {
+  border-bottom: 3px solid #000; /* Set the color of the bottom border */
+}
+
+.contact-input::placeholder {
+  color: #2e02494d; /* Set the default placeholder color */
+}
+
+.contact-input:focus::placeholder {
+  color: #000000; /* Change the color to your desired focus placeholder color */
+}
+
+.mySwiper .swiper-wrapper {
+  @apply flex items-start;
+}
+
+.mySwiper {
+  @apply w-full rounded-md;
+}
+
+/* From Uiverse.io by vikramsinghnegi */ 
+.blob {
+  width: 112px;
+  height: 112px;
+  display: grid;
+  background: #fff;
+  filter: blur(5.6px) contrast(10);
+  padding: 11.2px;
+  mix-blend-mode: darken;
+}
+
+.blob:before,
+.blob:after {
+  content: "";
+  grid-area: 1/1;
+  width: 44.8px;
+  height: 44.8px;
+  background: #2fff24;
+  animation: blob-rhf26m 2s infinite;
+}
+
+.blob:after {
+  animation-delay: -1s;
+}
+
+@keyframes blob-rhf26m {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(100%, 0);
+  }
+
+  50% {
+    transform: translate(100%, 100%);
+  }
+
+  75% {
+    transform: translate(0, 100%);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+
+
+
+/* From Uiverse.io by ilkhoeri */ 
+.wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.inner {
+  --w: 100px;
+  --h: 120px;
+  --translateZ: calc((var(--w) + var(--h)) + 0px);
+  --rotateX: -15deg;
+  --perspective: 1000px;
+  position: absolute;
+  width: var(--w);
+  height: var(--h);
+  top: 25%;
+  left: calc(50% - (var(--w) / 2) - 2.5px);
+  z-index: 2;
+  transform-style: preserve-3d;
+  transform: perspective(var(--perspective));
+  animation: rotating 20s linear infinite; /* */
+}
+@keyframes rotating {
+  from {
+    transform: perspective(var(--perspective)) rotateX(var(--rotateX))
+      rotateY(0);
+  }
+  to {
+    transform: perspective(var(--perspective)) rotateX(var(--rotateX))
+      rotateY(1turn);
+  }
+}
+
+.card {
+  position: absolute;
+  border: 2px solid rgba(var(--color-card));
+  border-radius: 12px;
+  overflow: hidden;
+  inset: 0;
+  transform: rotateY(calc((360deg / var(--quantity)) * var(--index)))
+    translateZ(var(--translateZ));
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #0000
+    radial-gradient(
+      circle,
+      rgba(var(--color-card), 0.2) 0%,
+      rgba(var(--color-card), 0.6) 80%,
+      rgba(var(--color-card), 0.9) 100%
+    );
+}
+
+.gif-container {
+  position: fixed;
+  top: 40%;
+  transform: translateY(-50%);
+  width: 100%;
+  pointer-events: none; /* To avoid blocking other interactions */
+  z-index: 1000;
+}
+
+.animated-gif {
+  position: absolute;
+  right: -200px; /* Start position off-screen */
+  animation: moveLeft 25s linear infinite;
+}
+
+@keyframes moveLeft {
+  0% {
+    right: -2000px; /* Start off-screen */
+  }
+  100% {
+    right: 100vw; /* End off-screen */
+  }
+}
+
+/* From Uiverse.io by Subaashbala */ 
+/* Prior to using this loader, please ensure that you have set a background image or background color, as the text is transparent and not designed with a solid color. */
+.loader {
+  --ANIMATION-DELAY-MULTIPLIER: 70ms;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.loader span {
+  padding: 0;
+  margin: 0;
+  letter-spacing: -5rem;
+  animation-delay: 0s;
+  transform: translateY(4rem);
+  animation: hideAndSeek 1s alternate infinite cubic-bezier(0.86, 0, 0.07, 1);
+}
+.loader .l {
+  animation-delay: calc(var(--ANIMATION-DELAY-MULTIPLIER) * 0);
+}
+.loader .o {
+  animation-delay: calc(var(--ANIMATION-DELAY-MULTIPLIER) * 1);
+}
+.loader .a {
+  animation-delay: calc(var(--ANIMATION-DELAY-MULTIPLIER) * 2);
+}
+.loader .d {
+  animation-delay: calc(var(--ANIMATION-DELAY-MULTIPLIER) * 3);
+}
+.loader .ispan {
+  animation-delay: calc(var(--ANIMATION-DELAY-MULTIPLIER) * 4);
+}
+.loader .n {
+  animation-delay: calc(var(--ANIMATION-DELAY-MULTIPLIER) * 5);
+}
+.loader .g {
+  animation-delay: calc(var(--ANIMATION-DELAY-MULTIPLIER) * 6);
+}
+.letter {
+  width: fit-content;
+  height: 3rem;
+}
+.i {
+  margin-inline: 5px;
+}
+@keyframes hideAndSeek {
+  0% {
+    transform: translateY(4rem);
+  }
+  100% {
+    transform: translateY(0rem);
+  }
+}
