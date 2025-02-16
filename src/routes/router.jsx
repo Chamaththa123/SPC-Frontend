@@ -10,6 +10,8 @@ import { SupplierLayout } from "../components/layouts/SupplierLayout";
 import Tender from "../pages/tender/Tender";
 import TenderSubmission from "../pages/tender/TenderSubmission";
 import SupplierTenderSubmittion from "../pages/supplier/SupplierTenderSubmittion";
+import Suppliers from "../pages/supplier/Suppliers";
+import PendingSuppliers from "../pages/supplier/PendingSuppliers";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +21,14 @@ const router = createBrowserRouter([
       {
         path: "/admin/dashboard",
         element: <PrivateRoute element={<Dashboard />} />,
+      },
+      {
+        path: "/suppliers",
+        element: <PrivateRoute element={<Suppliers />} />,
+      },
+      {
+        path: "/pending-suppliers",
+        element: <PrivateRoute element={<PendingSuppliers />} />,
       },
     ],
   },
