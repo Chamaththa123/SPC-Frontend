@@ -12,6 +12,11 @@ import TenderSubmission from "../pages/tender/TenderSubmission";
 import SupplierTenderSubmittion from "../pages/supplier/SupplierTenderSubmittion";
 import Suppliers from "../pages/supplier/Suppliers";
 import PendingSuppliers from "../pages/supplier/PendingSuppliers";
+import Drugs from "../pages/drug/Drugs";
+import EditDrugs from "../pages/drug/EditDrugs";
+import AddDrug from "../pages/drug/AddDrug";
+import Facility from "../pages/facility/Facility";
+import AddFacility from "../pages/facility/AddFacility";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +34,30 @@ const router = createBrowserRouter([
       {
         path: "/pending-suppliers",
         element: <PrivateRoute element={<PendingSuppliers />} />,
+      },
+      {
+        path: "/drugs",
+        element: <PrivateRoute element={<Drugs />} />,
+      },
+      {
+        path: "/drugs/:id",
+        element: <PrivateRoute element={<EditDrugs />} />,
+      },
+      {
+        path: "/add-drugs",
+        element: <PrivateRoute element={<AddDrug />} />,
+      },
+      {
+        path: "/add-drugs",
+        element: <PrivateRoute element={<AddDrug />} />,
+      },
+      {
+        path: "/facility",
+        element: <PrivateRoute element={<Facility />} />,
+      },
+      {
+        path: "/add-facility",
+        element: <PrivateRoute element={<AddFacility />} />,
       },
     ],
   },

@@ -74,6 +74,13 @@ export const newNavigationItems = [
     ],
   },
   {
+    title: "Drugs",
+    link: "/drugs",
+    icon: UserIcon,
+    priv_name: 0,
+    children: ""
+  },
+  {
     title: "Suppliers",
     link: "#",
     icon: ChartBarIcon,
@@ -93,6 +100,13 @@ export const newNavigationItems = [
       },
       
     ],
+  },
+  {
+    title: "Facility",
+    link: "/facility",
+    icon: UserIcon,
+    priv_name: 0,
+    children: ""
   },
 ];
 
