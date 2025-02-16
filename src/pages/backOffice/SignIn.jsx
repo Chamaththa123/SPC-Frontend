@@ -53,8 +53,14 @@ const SignIn = () => {
       const { data } = await axiosClient.post("/User/login", loginData);
       console.log(data)
       setUser(data.user);
+      console.log(data.user)
       setToken(data.token);
-      navigate("/");
+      if(data.user.role == 4){
+        navigate("/supplier/tender");
+      }else{
+        navigate("/");
+      }
+      
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
