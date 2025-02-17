@@ -20,6 +20,8 @@ import AddFacility from "../pages/facility/AddFacility";
 import UpdateDrugStock from "../pages/drug/UpdateDrugStock";
 import AddFacilityUsers from "../pages/facility/AddFacilityUsers";
 import SupplierOrder from "../pages/drug/SupplierOrder";
+import AllSupplierOrders from "../pages/supplierOrders/AllSupplierOrders";
+import SupplierOrderList from "../pages/supplierOrders/SupplierOrderList";
 
 const router = createBrowserRouter([
   {
@@ -71,9 +73,10 @@ const router = createBrowserRouter([
         element: <PrivateRoute element={<AddFacility />} />,
       },
       {
-        path: "/add-facility-users/:id",
-        element: <PrivateRoute element={<AddFacilityUsers />} />,
+        path: "/all-supplier-orders",
+        element: <PrivateRoute element={<AllSupplierOrders />} />,
       },
+
     ],
   },
   {
@@ -105,6 +108,10 @@ const router = createBrowserRouter([
       {
         path: "tender-submission",
         element: <SupplierTenderSubmittion />,
+      },
+      {
+        path: "supplier-orders",
+        element: <PrivateRoute element={<SupplierOrderList />} />,
       },
     ],
   },

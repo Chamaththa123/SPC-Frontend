@@ -52,6 +52,14 @@ export const SupplierLayout = () => {
                 <div>
                   <a
                     className="bg-[#1b4172] p-3 text-white text-[14px] rounded-lg"
+                    href="/supplier/supplier-orders"
+                  >
+                    My Orders
+                  </a>
+                </div>
+                <div>
+                  <a
+                    className="bg-[#1b4172] p-3 text-white text-[14px] rounded-lg"
                     href="/supplier/tender-submission"
                   >
                     My Tender Proposal

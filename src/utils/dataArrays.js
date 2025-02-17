@@ -102,6 +102,13 @@ export const newNavigationItems = [
     ],
   },
   {
+    title: "Supplier Orders",
+    link: "/all-supplier-orders",
+    icon: UserIcon,
+    priv_name: 0,
+    children: ""
+  },
+  {
     title: "Facility",
     link: "/facility",
     icon: UserIcon,
