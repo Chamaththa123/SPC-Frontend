@@ -60,6 +60,7 @@ export const SignUp = () => {
       contact: contactRef.current.value,
       status: 0,
       role: 4,
+      branchId: 0,
     };
 
     const validationErrors = validate(registerData);
@@ -95,7 +96,9 @@ export const SignUp = () => {
       <Card className="w-[600px]">
         <form onSubmit={handleRegister}>
           <CardBody className="flex flex-col gap-4">
-            <div className="text-[25px] font-bold mb-10">Supplier Registration</div>
+            <div className="text-[25px] font-bold mb-10">
+              Supplier Registration
+            </div>
             {showAlert && (
               <div className="mb-4 rounded bg-red-500 px-4 py-2 text-white">
                 {alertMessage}

@@ -69,7 +69,13 @@ const Facility = () => {
                     <p className="text-sm">{facility.idFacility}</p>
                   </td>
                   <td className="p-4">
-                    <p className="text-sm">{facility.type == 2 ? "Manufacturing Plant":facility.type == 3 ? "Pharmacy":"WareHouse"}</p>
+                    <p className="text-sm">
+                      {facility.type == 2
+                        ? "Manufacturing Plant"
+                        : facility.type == 3
+                        ? "Pharmacy"
+                        : "WareHouse"}
+                    </p>
                   </td>
                   <td className="p-4">
                     <p className="text-sm">{facility.name}</p>
@@ -84,6 +90,13 @@ const Facility = () => {
                       className="text-sm text-blue-700"
                     >
                       Edit
+                    </a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a
+                      href={`/add-facility-users/${facility.idFacility}`}
+                      className="text-sm text-blue-700"
+                    >
+                      Add Users
                     </a>
                   </td>
                 </tr>

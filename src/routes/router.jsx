@@ -17,6 +17,9 @@ import EditDrugs from "../pages/drug/EditDrugs";
 import AddDrug from "../pages/drug/AddDrug";
 import Facility from "../pages/facility/Facility";
 import AddFacility from "../pages/facility/AddFacility";
+import UpdateDrugStock from "../pages/drug/UpdateDrugStock";
+import AddFacilityUsers from "../pages/facility/AddFacilityUsers";
+import SupplierOrder from "../pages/drug/SupplierOrder";
 
 const router = createBrowserRouter([
   {
@@ -52,12 +55,24 @@ const router = createBrowserRouter([
         element: <PrivateRoute element={<AddDrug />} />,
       },
       {
+        path: "/drug/stock-update/:id",
+        element: <PrivateRoute element={<UpdateDrugStock />} />,
+      },
+      {
+        path: "/drug/order-by-supplier/:id",
+        element: <PrivateRoute element={<SupplierOrder />} />,
+      },
+      {
         path: "/facility",
         element: <PrivateRoute element={<Facility />} />,
       },
       {
         path: "/add-facility",
         element: <PrivateRoute element={<AddFacility />} />,
+      },
+      {
+        path: "/add-facility-users/:id",
+        element: <PrivateRoute element={<AddFacilityUsers />} />,
       },
     ],
   },

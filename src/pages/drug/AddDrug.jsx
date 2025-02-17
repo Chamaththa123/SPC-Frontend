@@ -13,6 +13,7 @@ const AddDrug = () => {
     description: "",
     expiryDate: "",
     status: 1,
+    stockIn:0
   };
 
   const [formData, setFormData] = useState(initialFormData);

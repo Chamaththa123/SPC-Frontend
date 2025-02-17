@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 const EditDrugs = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  
+
   const [editedDrug, setEditedDrug] = useState(null);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -40,13 +40,13 @@ const EditDrugs = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     const validateErrors = validate(editedDrug);
     setErrors(validateErrors);
 
     if (Object.keys(validateErrors).length === 0) {
       setIsSubmitting(true);
-      
+
       axiosClient
         .put(`/Drug/update`, editedDrug)
         .then(() => {
@@ -96,7 +96,7 @@ const EditDrugs = () => {
 
   return (
     <div>
-        <div className="text-[18px] font-semibold mb-10">Edit Drug Details</div>
+      <div className="text-[18px] font-semibold mb-10">Edit Drug Details</div>
       <form onSubmit={handleSubmit}>
         <div className="w-[80%]">
           <div className="flex gap-10">
@@ -109,7 +109,9 @@ const EditDrugs = () => {
                 value={editedDrug.code}
                 onChange={handleChange}
               />
-              {errors.code && <p className="text-red-500 text-sm">{errors.code}</p>}
+              {errors.code && (
+                <p className="text-red-500 text-sm">{errors.code}</p>
+              )}
             </div>
             <div className="w-full">
               <label className="block text-sm font-medium">Name</label>
@@ -120,7 +122,9 @@ const EditDrugs = () => {
                 value={editedDrug.name}
                 onChange={handleChange}
               />
-              {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+              {errors.name && (
+                <p className="text-red-500 text-sm">{errors.name}</p>
+              )}
             </div>
           </div>
           <div className="flex gap-10 mt-10">
@@ -133,7 +137,9 @@ const EditDrugs = () => {
                 value={editedDrug.description}
                 onChange={handleChange}
               />
-              {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
+              {errors.description && (
+                <p className="text-red-500 text-sm">{errors.description}</p>
+              )}
             </div>
             <div className="w-full">
               <label className="block text-sm font-medium">Expiry Date</label>
@@ -144,7 +150,9 @@ const EditDrugs = () => {
                 value={editedDrug.expiryDate}
                 onChange={handleChange}
               />
-              {errors.expiryDate && <p className="text-red-500 text-sm">{errors.expiryDate}</p>}
+              {errors.expiryDate && (
+                <p className="text-red-500 text-sm">{errors.expiryDate}</p>
+              )}
             </div>
           </div>
         </div>
