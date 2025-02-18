@@ -115,5 +115,12 @@ export const newNavigationItems = [
     priv_name: 0,
     children: ""
   },
+  {
+    title: "Tenders",
+    link: "/tenders",
+    icon: UserIcon,
+    priv_name: 0,
+    children: ""
+  },
 ];
 
