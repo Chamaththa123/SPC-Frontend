@@ -24,6 +24,9 @@ import AllSupplierOrders from "../pages/supplierOrders/AllSupplierOrders";
 import SupplierOrderList from "../pages/supplierOrders/SupplierOrderList";
 import AllTenders from "../pages/tender/AllTenders";
 import AddTender from "../pages/tender/AddTender";
+import Stocks from "../pages/stock/Stocks";
+import AddStock from "../pages/stock/AddStock";
+import AddStockOrder from "../pages/stock/AddStockOrder";
 
 const router = createBrowserRouter([
   {
@@ -75,12 +78,28 @@ const router = createBrowserRouter([
         element: <PrivateRoute element={<AddFacility />} />,
       },
       {
+        path: "/add-facility-users/:id",
+        element: <PrivateRoute element={<AddFacilityUsers />} />,
+      },
+      {
+        path: "/all-supplier-orders",
+        element: <PrivateRoute element={<AllSupplierOrders />} />,
+      },
+      {
         path: "/tenders",
         element: <PrivateRoute element={<AllTenders />} />,
       },
       {
         path: "/add-tender",
         element: <PrivateRoute element={<AddTender />} />,
+      },
+      {
+        path: "/stocks",
+        element: <PrivateRoute element={<Stocks />} />,
+      },
+      {
+        path: "/add-stock-order/:id",
+        element: <PrivateRoute element={<AddStockOrder />} />,
       },
     ],
   },

@@ -122,5 +122,12 @@ export const newNavigationItems = [
     priv_name: 0,
     children: ""
   },
+  {
+    title: "Stocks",
+    link: "/stocks",
+    icon: UserIcon,
+    priv_name: 0,
+    children: ""
+  },
 ];
 

@@ -3,24 +3,24 @@ import { useParams, useNavigate } from "react-router-dom";
 import axiosClient from "../../../axios-client";
 import { Input } from "@material-tailwind/react";
 import Swal from "sweetalert2";
+import { useStateContext } from "../../contexts/UserContext";
 
-const SupplierOrder = () => {
+const AddStockOrder = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useStateContext();
 
-  const [drugDetails, setDrugDetails] = useState(null);
-  const [tenderSupplierId, setTenderSupplierId] = useState(null);
-
+  const [stockDetails, setStockDetails] = useState(null);
   const [formData, setFormData] = useState({
-    drugId: id,
+    stockId: id,
+    drugId: "",
     drugCode: "",
     drugName: "",
-    supplierId: null,
+    branchId: user.branchId,
     qty: 0,
     status: 0,
   });
 
-  console.log(formData);
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
 
@@ -28,46 +28,29 @@ const SupplierOrder = () => {
     if (!id) return;
 
     axiosClient
-      .get(`Drug/${id}`)
+      .get(`Stock/get-by-id/${id}`)
       .then((res) => {
-        setDrugDetails(res.data);
+        setStockDetails(res.data);
       })
       .catch((error) => {
-        console.error("Error fetching drug details:", error);
+        console.error("Error fetching stock details:", error);
       });
   }, [id]);
 
   useEffect(() => {
-    if (!id) return;
-
-    axiosClient
-      .get(`TenderSubmission/active-by-drug/${id}`)
-      .then((res) => {
-        setTenderSupplierId(res.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching supplier id:", error);
-      });
-  }, [id]);
-
-  // Update formData only when drugDetails and tenderSupplierId are both available
-  useEffect(() => {
-    if (drugDetails && tenderSupplierId) {
-      setFormData({
-        drugId: id,
-        drugCode: drugDetails.code,
-        drugName: drugDetails.name,
-        supplierId: tenderSupplierId[0],
-        qty: 0,
-        status: 0,
-      });
+    if (stockDetails) {
+      setFormData((prevData) => ({
+        ...prevData,
+        drugId: stockDetails.drugIdDrug,
+        drugCode: stockDetails.drugCode,
+        drugName: stockDetails.drugName,
+      }));
     }
-  }, [drugDetails, tenderSupplierId, id]);
+  }, [stockDetails]);
 
-  // Validate form fields
   const validate = (data) => {
     const errors = {};
-    if (data.qty == 0) errors.name = "Quantity is required.";
+    if (data.qty <= 0) errors.qty = "Quantity must be greater than 0.";
     return errors;
   };
 
@@ -91,14 +74,14 @@ const SupplierOrder = () => {
     if (Object.keys(validateErrors).length === 0) {
       setSubmitting(true);
       try {
-        await axiosClient.post(`/SupplierOrder/add`, formData);
+        await axiosClient.post(`/PharmacyOrder/create`, formData);
         Swal.fire({
           title: "Success!",
           text: "Order Placed Successfully.",
           icon: "success",
           confirmButtonText: "OK",
         }).then(() => {
-          navigate("/drugs");
+          navigate("/stocks");
         });
       } catch (error) {
         Swal.fire({
@@ -122,35 +105,25 @@ const SupplierOrder = () => {
     }
   };
 
-  if (!drugDetails ) {
+  if (!stockDetails) {
     return <div>Loading...</div>;
   }
 
   return (
     <div>
       <div className="text-[18px] font-semibold mb-10">
-        Place New Order - {drugDetails.code} - {drugDetails.name}
+        Place New Order - {stockDetails.drugCode} - {stockDetails.drugName}
       </div>
-      <div className="flex ">
-        <div class="flex w-full   overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+      <div className="flex">
+        <div className="flex w-full overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
           <table className="w-full text-left table-auto min-w-max text-slate-800">
             <thead>
               <tr className="text-slate-500 border-b border-slate-300 bg-slate-50">
                 <th className="p-4">
-                  <p className="text-sm leading-none font-semibold">Id</p>
+                  <p className="text-sm leading-none font-semibold">Stock Id</p>
                 </th>
                 <th className="p-4">
-                  <p className="text-sm leading-none font-semibold">
-                    Drug Code
-                  </p>
-                </th>
-                <th className="p-4">
-                  <p className="text-sm leading-none font-semibold">Name</p>
-                </th>
-                <th className="p-4">
-                  <p className="text-sm leading-none font-semibold">
-                    Description
-                  </p>
+                  <p className="text-sm leading-none font-semibold">Drug</p>
                 </th>
                 <th className="p-4">
                   <p className="text-sm leading-none font-semibold">
@@ -160,21 +133,17 @@ const SupplierOrder = () => {
               </tr>
             </thead>
             <tbody>
-              <tr key={drugDetails.id} className="hover:bg-slate-50">
+              <tr key={stockDetails.id} className="hover:bg-slate-50">
                 <td className="p-4">
-                  <p className="text-sm">{drugDetails.idDrug}</p>
+                  <p className="text-sm">S{stockDetails.idStock}</p>
                 </td>
                 <td className="p-4">
-                  <p className="text-sm">{drugDetails.code}</p>
+                  <p className="text-sm">
+                    {stockDetails.drugCode} - {stockDetails.drugName}
+                  </p>
                 </td>
                 <td className="p-4">
-                  <p className="text-sm">{drugDetails.name}</p>
-                </td>
-                <td className="p-4">
-                  <p className="text-sm">{drugDetails.description}</p>
-                </td>
-                <td className="p-4">
-                  <p className="text-sm">{drugDetails.stockIn}</p>
+                  <p className="text-sm">{stockDetails.inStock}</p>
                 </td>
               </tr>
             </tbody>
@@ -197,7 +166,9 @@ const SupplierOrder = () => {
             <p className="text-red-500 text-sm mt-2">{errors.qty}</p>
           )}
         </div>
-        <p className="text-gray-700 text-sm my-5">Once the order is placed, it will be sent to the approved supplier in the tender submission.</p>
+        <p className="text-gray-700 text-sm my-5">
+          Once the order is placed, it will be sent to the SPC Warehouse.
+        </p>
         <div className="mt-1 text-left">
           <button
             type="submit"
@@ -212,4 +183,4 @@ const SupplierOrder = () => {
   );
 };
 
-export default SupplierOrder;
+export default AddStockOrder;
