@@ -2,7 +2,7 @@ import React from "react";
 import { Card, ListItem, ListItemPrefix } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import logo from "./../../assets/images/logo.png";
-import { newNavigationItems } from "../../utils/dataArrays";
+import { adminNavigationItems,pharmacyNavigationItems,manufacturingNavigationItems,warehouseNavigationItems } from "../../utils/dataArrays";
 import { useState } from "react";
 import { useEffect } from "react";
 import { ArrowDown, ArrowRight } from "../../utils/icons";
@@ -18,6 +18,17 @@ export const SideBar = ({ handleSidebar, sidebar }) => {
   useEffect(() => {
     setCurrentUrl(location.pathname); // Update when route changes
   }, [location]);
+
+  const navigationItems =
+  user?.role === 1
+    ? adminNavigationItems
+    : user?.role === 5
+    ? warehouseNavigationItems
+    : user?.role === 2
+    ? manufacturingNavigationItems
+    : user?.role === 3
+    ? pharmacyNavigationItems
+    : [];
   return (
     <Card
       className={`fade-right-enter-active scrollbar-y-style fixed z-50 flex h-full w-[60%] transform flex-col items-start overflow-y-auto rounded-none bg-[#212126] p-2 font-inter transition duration-500 ease-in-out md:w-[16%] md:opacity-100 ${
@@ -47,7 +58,7 @@ export const SideBar = ({ handleSidebar, sidebar }) => {
         </span>
       </div>
       <li className="w-full list-none">
-        {newNavigationItems.map((item, itemIndex) => {
+        {navigationItems.map((item, itemIndex) => {
           return (
             <NavItem
               icon={item.icon}

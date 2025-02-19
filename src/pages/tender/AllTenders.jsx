@@ -106,6 +106,8 @@ const AllTenders = () => {
                     >
                       Change Status
                     </button>
+
+                    <a href={`/tender-submissions/${tender.idTender}`}>View Tender Submissions</a>
                   </td>
                 </tr>
               ))}

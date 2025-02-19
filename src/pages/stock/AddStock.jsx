@@ -35,6 +35,22 @@ const AddStock = ({
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [drugs, setDrugs] = useState([]);
+  const [stock, setStock] = useState([]);
+
+  useEffect(() => {
+    fetchStock();
+  }, []);
+
+  const fetchStock = () => {
+    axiosClient
+      .get(`Stock/get-by-branch/${user.branchId}`)
+      .then((res) => {
+        setStock(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   // Handle input changes
   const handleChange = (event) => {
@@ -56,14 +72,14 @@ const AddStock = ({
     if (selectedDrug) {
       setFormData((prevData) => ({
         ...prevData,
-        drugIdDrug: selectedDrug.idDrug, // Ensure this matches the validation field
+        drugIdDrug: selectedDrug.idDrug,
         drugCode: selectedDrug.code,
         drugName: selectedDrug.name,
       }));
     }
     setErrors((prevErrors) => ({
       ...prevErrors,
-      drugIdDrug: "", // Clear validation error
+      drugIdDrug: "",
     }));
   };
 
@@ -136,7 +152,7 @@ const AddStock = ({
         className="max-h-[90%] overflow-y-scroll-hidden rounded-sm bg-white font-inter shadow-none"
       >
         <DialogHeader className="flex justify-between items-center">
-          <div className=" text-lg font-bold">Add New Stock</div>
+          <div className=" text-lg font-bold">Add New Drug Stock</div>
           <button
             onClick={closeAddStock}
             className="py-1 px-2 rounded-full bg-gray-200 hover:bg-gray-300 transition text-[18px]"
@@ -159,11 +175,16 @@ const AddStock = ({
                     onChange={handleSelectChange}
                   >
                     <option value="">Choose a drug</option>
-                    {drugs.map((drug) => (
-                      <option key={drug.idDrug} value={drug.idDrug}>
-                        {drug.name}
-                      </option>
-                    ))}
+                    {drugs
+                      .filter(
+                        (drug) =>
+                          !stock.some((s) => s.drugIdDrug === drug.idDrug)
+                      )
+                      .map((drug) => (
+                        <option key={drug.idDrug} value={drug.idDrug}>
+                          {drug.name}
+                        </option>
+                      ))}
                   </select>
 
                   {errors.drugIdDrug && (
@@ -175,14 +196,21 @@ const AddStock = ({
                 <div className="w-full">
                   <div>
                     <label className="text-black text-sm font-medium">
-                      Date
+                      Stock In
                     </label>
                     <Input
                       className="mt-1 p-2 w-full border rounded-md text-[14px]"
                       type="number"
-                      name="date"
+                      name="inStock"
                       value={formData.inStock}
-                      onChange={handleChange}
+                      onChange={(e) =>
+                        setFormData((prevData) => ({
+                          ...prevData,
+                          inStock: e.target.value
+                            ? parseInt(e.target.value, 10)
+                            : 0,
+                        }))
+                      }
                     />
                   </div>
                 </div>
@@ -195,7 +223,7 @@ const AddStock = ({
                 className="bg-[#0d6efd] rounded-md p-2 text-white text-[15px] font-medium"
                 disabled={submitting}
               >
-                {submitting ? "Saving..." : "Add Tender"}
+                {submitting ? "Saving..." : "Add New Drug Stock"}
               </button>
             </div>
           </form>

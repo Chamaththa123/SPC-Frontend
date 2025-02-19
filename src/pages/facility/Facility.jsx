@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axiosClient from "../../../axios-client";
 import Swal from "sweetalert2";
+import AddWareHouseUsers from "./AddWareHouseUsers";
 
 const Facility = () => {
   const [facility, setFacility] = useState([]);
-
+const [addOpen, setAddOpen] = useState(false);
+const handleAddOpen = () => setAddOpen((cur) => !cur);
   useEffect(() => {
     const fetchFacility = () => {
       axiosClient
@@ -19,10 +21,30 @@ const Facility = () => {
 
     fetchFacility();
   }, []);
+
+  const openModal= () => {
+    handleAddOpen();
+  };
   return (
     <div>
       <div className="flex justify-between">
         <div className="text-[18px] font-semibold">All Facilities</div>
+        <button
+          onClick={() => openModal()}
+          className=" w-fit hidden md:flex gap-1 items-center p-1 px-3 font-inter font-medium bg-[#10806f] border-[#10806f] hover:bg-white text-white hover:text-black border-[1px] hover:border-black text-[14px] transition-colors duration-500"
+        >
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="w-5 h-5"
+            >
+              <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
+            </svg>
+          </span>
+          <span>New WareHouse Users</span>
+        </button>
         <a
           href="/add-facility"
           className=" w-fit hidden md:flex gap-1 items-center p-1 px-3 font-inter font-medium bg-[#10806f] border-[#10806f] hover:bg-white text-white hover:text-black border-[1px] hover:border-black text-[14px] transition-colors duration-500"
@@ -105,6 +127,10 @@ const Facility = () => {
           </table>
         </div>
       </div>
+      <AddWareHouseUsers 
+       closeUpdateStock={handleAddOpen} 
+       updateStockOpen={addOpen} 
+      />
     </div>
   );
 };

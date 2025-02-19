@@ -119,7 +119,7 @@ const SupplierOrderList = () => {
                     </p>
                   </td>
                   <td className="p-4">
-                  {order.status !== 1 && (
+                  {order.status == 0 && (
                       <button
                         onClick={() => markAsDelivered(order.idSupplierOrder)}
                         className="bg-blue-500 text-white px-3 py-1 text-sm rounded-md hover:bg-blue-600"

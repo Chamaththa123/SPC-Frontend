@@ -16,8 +16,6 @@ import {
   DocumentTextIcon,
 } from "@heroicons/react/24/outline";
 
-
-
 const CustomerArray = [
   {
     title: "Add Customers",
@@ -45,40 +43,13 @@ const CustomerArray = [
   },
 ];
 
-export const newNavigationItems = [
-  {
-    title: "Dashboard",
-    link: "/admin",
-    icon: ChartBarIcon,
-    priv_name: 0,
-    children: "",
-  },
-  {
-    title: "Project",
-    link: "#",
-    icon: UserIcon,
-    priv_name: 0,
-    children: [
-      {
-        title: "All Projects",
-        link: "/admin/projects",
-        icon: UserIcon,
-        priv_name: 0,
-      },
-      {
-        title: "Add Project",
-        link: "/admin/dashboard",
-        icon: UserIcon,
-        priv_name: 0,
-      },
-    ],
-  },
+export const adminNavigationItems = [
   {
     title: "Drugs",
     link: "/drugs",
     icon: UserIcon,
     priv_name: 0,
-    children: ""
+    children: "",
   },
   {
     title: "Suppliers",
@@ -98,7 +69,6 @@ export const newNavigationItems = [
         icon: UserIcon,
         priv_name: 0,
       },
-      
     ],
   },
   {
@@ -106,28 +76,84 @@ export const newNavigationItems = [
     link: "/all-supplier-orders",
     icon: UserIcon,
     priv_name: 0,
-    children: ""
+    children: "",
   },
   {
     title: "Facility",
     link: "/facility",
     icon: UserIcon,
     priv_name: 0,
-    children: ""
+    children: "",
   },
   {
     title: "Tenders",
     link: "/tenders",
     icon: UserIcon,
     priv_name: 0,
-    children: ""
+    children: "",
   },
+  {
+    title: "Pharmacy Orders",
+    link: "/pharmacy-orders",
+    icon: UserIcon,
+    priv_name: 0,
+    children: "",
+  },
+];
+
+export const pharmacyNavigationItems = [
   {
     title: "Stocks",
     link: "/stocks",
     icon: UserIcon,
     priv_name: 0,
-    children: ""
+    children: "",
   },
 ];
 
+export const manufacturingNavigationItems = [
+  {
+    title: "Drugs",
+    link: "/drugs",
+    icon: UserIcon,
+    priv_name: 0,
+    children: "",
+  },
+];
+
+export const warehouseNavigationItems = [
+  {
+    title: "Drugs",
+    link: "/drugs",
+    icon: UserIcon,
+    priv_name: 0,
+    children: "",
+  },
+  {
+    title: "Suppliers",
+    link: "#",
+    icon: ChartBarIcon,
+    priv_name: 0,
+    children: [
+      {
+        title: "All Suppliers",
+        link: "/suppliers",
+        icon: UserIcon,
+        priv_name: 0,
+      },
+      {
+        title: "Pending Suppliers",
+        link: "/pending-suppliers",
+        icon: UserIcon,
+        priv_name: 0,
+      },
+    ],
+  },
+  {
+    title: "Supplier Orders",
+    link: "/all-supplier-orders",
+    icon: UserIcon,
+    priv_name: 0,
+    children: "",
+  },
+];

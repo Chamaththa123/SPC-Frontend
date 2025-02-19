@@ -5,86 +5,111 @@ import { Input } from "@material-tailwind/react";
 import Swal from "sweetalert2";
 
 const AddFacilityUsers = () => {
-     const { id } = useParams();
-      const navigate = useNavigate();
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [facilityDetails, setFacilityDetails] = useState({});
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    contact: "",
+    role: 2, // Default role
+    status: 1,
+    branchId: id,
+  });
+  const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
 
-      const initialFormData = {
-        name: "",
-        email: "",
-        password: "",
-        contact: "",
-        role: 3,
-        status: 1,
-        branchId: id,
-      };
-    
-      const [formData, setFormData] = useState(initialFormData);
-      const [errors, setErrors] = useState({});
-      const [submitting, setSubmitting] = useState(false);
-    
-      // Handle input changes
-      const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormData((prevData) => ({
-          ...prevData,
-          [name]: value,
-        }));
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          [name]: "",
-        }));
-      };
+  useEffect(() => {
+    if (!id) return;
 
-    
-      // Validate form fields
-      const validate = (data) => {
-        const errors = {};
-        if (!data.name) errors.name = "Name is required.";
-        if (!data.email) errors.email = "Email is required.";
-        if (!data.password) errors.password = "password is required.";
-        if (!data.contact) errors.contact = "Contact No is required.";
-        return errors;
-      };
-    
-      // Handle form submission
-      const handleSubmit = async (event) => {
-        event.preventDefault();
-        const validateErrors = validate(formData);
-        setErrors(validateErrors);
-    
-        if (Object.keys(validateErrors).length === 0) {
-          setSubmitting(true);
-          try {
-            await axiosClient.post(`/User/register`, formData);
-            Swal.fire({
-              title: "Success!",
-              text: "New User added successfully.",
-              icon: "success",
-              confirmButtonText: "OK",
-            }).then(() => {
-              navigate("/facility");
-            });
-          } catch (error) {
-            Swal.fire({
-              title: "Error",
-              text:
-                error.response?.data?.message ||
-                "Failed to add User. Please try again.",
-              icon: "error",
-              confirmButtonText: "OK",
-            });
-          } finally {
-            setSubmitting(false);
-          }
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Validation Error",
-            text: "Please fill all required fields.",
-            allowOutsideClick: false,
-          });
-        }
-      };
+    axiosClient
+      .get(`Facility/${id}`)
+      .then((res) => {
+        setFacilityDetails(res.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching facility details:", error);
+      });
+  }, [id]);
+
+  // Update userRole based on facilityDetails
+  useEffect(() => {
+    if (facilityDetails?.type) {
+      setFormData((prevData) => ({
+        ...prevData,
+        role: facilityDetails.type === 3 ? 3 : 2,
+      }));
+    }
+  }, [facilityDetails]);
+
+  // Handle input changes
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  };
+
+  // Validate form fields
+  const validate = (data) => {
+    const errors = {};
+    if (!data.name) errors.name = "Name is required.";
+    if (!data.email) errors.email = "Email is required.";
+    if (!data.password) errors.password = "Password is required.";
+    if (!data.contact) errors.contact = "Contact No is required.";
+    return errors;
+  };
+
+  // Handle form submission
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const validateErrors = validate(formData);
+    setErrors(validateErrors);
+
+    if (Object.keys(validateErrors).length === 0) {
+      setSubmitting(true);
+      try {
+        await axiosClient.post(`/User/register`, formData);
+        Swal.fire({
+          title: "Success!",
+          text: "New User added successfully.",
+          icon: "success",
+          confirmButtonText: "OK",
+        }).then(() => {
+          navigate("/facility");
+        });
+      } catch (error) {
+        Swal.fire({
+          title: "Error",
+          text:
+            error.response?.data?.message ||
+            "Failed to add User. Please try again.",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      } finally {
+        setSubmitting(false);
+      }
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Validation Error",
+        text: "Please fill all required fields.",
+        allowOutsideClick: false,
+      });
+    }
+  };
+
+  if (!facilityDetails) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <div className="text-[18px] font-semibold mb-10">Add New User</div>
@@ -113,7 +138,7 @@ const AddFacilityUsers = () => {
                 value={formData.email}
                 onChange={handleChange}
               />
-              {errors.name && (
+              {errors.email && (
                 <p className="text-red-500 text-sm mt-2">{errors.email}</p>
               )}
             </div>
@@ -160,7 +185,7 @@ const AddFacilityUsers = () => {
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default AddFacilityUsers
+export default AddFacilityUsers;

@@ -27,6 +27,9 @@ import AddTender from "../pages/tender/AddTender";
 import Stocks from "../pages/stock/Stocks";
 import AddStock from "../pages/stock/AddStock";
 import AddStockOrder from "../pages/stock/AddStockOrder";
+import PharmacyOrders from "../pages/pharmacyOrders/PharmacyOrders";
+import PharmacyOrderForFarmacy from "../pages/pharmacyOrders/PharmacyOrderForFarmacy";
+import ViewTenderSubmissions from "../pages/tender/ViewTenderSubmissions";
 
 const router = createBrowserRouter([
   {
@@ -100,6 +103,18 @@ const router = createBrowserRouter([
       {
         path: "/add-stock-order/:id",
         element: <PrivateRoute element={<AddStockOrder />} />,
+      },
+      {
+        path: "/pharmacy-orders",
+        element: <PrivateRoute element={<PharmacyOrders />} />,
+      },
+      {
+        path: "/orders",
+        element: <PrivateRoute element={<PharmacyOrderForFarmacy />} />,
+      },
+      {
+        path: "/tender-submissions/:id",
+        element: <PrivateRoute element={<ViewTenderSubmissions />} />,
       },
     ],
   },
