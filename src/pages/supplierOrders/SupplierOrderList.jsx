@@ -103,7 +103,7 @@ const SupplierOrderList = () => {
                             ? "bg-orange-100 text-orange-700"
                             : order.status === 1
                             ? "bg-blue-100 text-blue-700"
-                            : order.status === 2
+                            : order.status === 2 || 3
                             ? "bg-green-100 text-green-700"
                             : "bg-gray-100 text-gray-700"
                         }`}
@@ -112,7 +112,7 @@ const SupplierOrderList = () => {
                           ? "Pending"
                           : order.status === 1
                           ? "Delivered"
-                          : order.status === 2
+                          : order.status === 2 || 3
                           ? "Complete"
                           : "Unknown"}
                       </div>

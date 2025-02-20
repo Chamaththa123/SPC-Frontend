@@ -2,7 +2,6 @@ import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { MainLayout } from "../components/layouts/MainLayout";
 import SignIn from "../pages/backOffice/SignIn";
-import { Dashboard } from "../pages/backOffice/Dashboard";
 import PrivateRoute from "./PrivateRoute";
 import { GuestLayout } from "../components/layouts/GuestLayout";
 import { SignUp } from "../pages/SignUp";
@@ -25,7 +24,6 @@ import SupplierOrderList from "../pages/supplierOrders/SupplierOrderList";
 import AllTenders from "../pages/tender/AllTenders";
 import AddTender from "../pages/tender/AddTender";
 import Stocks from "../pages/stock/Stocks";
-import AddStock from "../pages/stock/AddStock";
 import AddStockOrder from "../pages/stock/AddStockOrder";
 import PharmacyOrders from "../pages/pharmacyOrders/PharmacyOrders";
 import PharmacyOrderForFarmacy from "../pages/pharmacyOrders/PharmacyOrderForFarmacy";
@@ -36,10 +34,6 @@ const router = createBrowserRouter([
     path: "/",
     element: <MainLayout />,
     children: [
-      {
-        path: "/admin/dashboard",
-        element: <PrivateRoute element={<Dashboard />} />,
-      },
       {
         path: "/suppliers",
         element: <PrivateRoute element={<Suppliers />} />,
