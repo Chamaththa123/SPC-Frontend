@@ -54,7 +54,7 @@ const PendingSuppliers = () => {
     <div>
       <div className="text-[18px] font-semibold">Newly Registered Suppliers</div>
       <div className="mt-10">
-        <div className="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+        <div className="relative flex flex-col w-full h-full overflow-scroll-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
           <table className="w-full text-left table-auto min-w-max text-slate-800">
             <thead>
               <tr className="text-slate-500 border-b border-slate-300 bg-slate-50">

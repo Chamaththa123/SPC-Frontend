@@ -37,7 +37,7 @@ const SupplierTenderSubmittion = () => {
   }, [user.idUser]);
 
   return (
-    <div>
+    <div className="m-8  rounded-lg p-5 mb-4">
       <div className="font-bold text-[18px]">Submitted Tender Proposals</div>
 
       <div>
@@ -57,7 +57,7 @@ const SupplierTenderSubmittion = () => {
                       ? "bg-orange-100 text-orange-500"
                       : tender.status === 1
                       ? "bg-green-100 text-green-500"
-                      : tender.status === 3
+                      : tender.status === 2
                       ? "bg-red-100 text-red-500"
                       : "bg-gray-100 text-gray-500"
                   }`}
@@ -65,8 +65,8 @@ const SupplierTenderSubmittion = () => {
                   {tender.status === 0
                     ? "Pending"
                     : tender.status === 1
-                    ? "Complete"
-                    : tender.status === 3
+                    ? "Approved"
+                    : tender.status === 2
                     ? "Rejected"
                     : "Unknown"}
                 </div>

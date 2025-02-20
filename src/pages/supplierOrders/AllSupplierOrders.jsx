@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axiosClient from "../../../axios-client";
 import Swal from "sweetalert2";
+import {
+  ProcessedIcon,
+  ProcessIcon,
+  ProcessingIcon,
+  UpdateStockIcon,
+} from "../../utils/icons";
+import { IconButton, Tooltip } from "@material-tailwind/react";
 
 const AllSupplierOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -187,22 +194,32 @@ const AllSupplierOrders = () => {
                     {order.status == 1 && (
                       <button
                         onClick={() => markAsDelivered(order.idSupplierOrder)}
-                        className="bg-green-500 text-white px-3 py-1 text-sm rounded-md hover:bg-green-600"
                       >
-                        Mark as Complete
+                        <Tooltip content="Mark as Completed">
+                          <IconButton
+                            variant="text"
+                            className="mx-2 bg-gray-100 text-blue-500"
+                          >
+                            <ProcessIcon />
+                          </IconButton>
+                        </Tooltip>
                       </button>
                     )}
                     {order.status === 2 && (
-                      <button
-                        onClick={() => updateStock(order)}
-                        className="bg-blue-500 text-white px-3 py-1 text-sm rounded-md hover:bg-blue-600"
-                      >
-                        Update Stock
+                      <button onClick={() => updateStock(order)}>
+                        <Tooltip content="Update Stock">
+                          <IconButton
+                            variant="text"
+                            className="mx-2 bg-gray-100"
+                          >
+                            <UpdateStockIcon />
+                          </IconButton>
+                        </Tooltip>
                       </button>
                     )}
                     {order.status === 3 && (
-                      <div className="text-[14px] text-green-700 font-semibold">
-                        Stock Updated
+                      <div className="text-sm text-green-600 font-medium">
+                        <ProcessedIcon />
                       </div>
                     )}
                   </td>

@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../../../axios-client";
 import Swal from "sweetalert2";
 import AddWareHouseUsers from "./AddWareHouseUsers";
+import { IconButton, Tooltip } from "@material-tailwind/react";
+import { AddUserIcon, EditNewIcon } from "../../utils/icons";
 
 const Facility = () => {
   const [facility, setFacility] = useState([]);
-const [addOpen, setAddOpen] = useState(false);
-const handleAddOpen = () => setAddOpen((cur) => !cur);
+  const [addOpen, setAddOpen] = useState(false);
+  const handleAddOpen = () => setAddOpen((cur) => !cur);
   useEffect(() => {
     const fetchFacility = () => {
       axiosClient
@@ -22,16 +24,17 @@ const handleAddOpen = () => setAddOpen((cur) => !cur);
     fetchFacility();
   }, []);
 
-  const openModal= () => {
+  const openModal = () => {
     handleAddOpen();
   };
   return (
     <div>
       <div className="flex justify-between">
         <div className="text-[18px] font-semibold">All Facilities</div>
+        <div className="flex gap-10">
         <button
           onClick={() => openModal()}
-          className=" w-fit hidden md:flex gap-1 items-center p-1 px-3 font-inter font-medium bg-[#10806f] border-[#10806f] hover:bg-white text-white hover:text-black border-[1px] hover:border-black text-[14px] transition-colors duration-500"
+          className=" w-fit hidden md:flex gap-1 items-center p-1 px-3 font-inter font-medium bg-[#0ddf4e] border-[#0ddf4e] hover:bg-white text-white hover:text-black border-[1px] hover:border-black text-[14px] transition-colors duration-500"
         >
           <span>
             <svg
@@ -47,7 +50,7 @@ const handleAddOpen = () => setAddOpen((cur) => !cur);
         </button>
         <a
           href="/add-facility"
-          className=" w-fit hidden md:flex gap-1 items-center p-1 px-3 font-inter font-medium bg-[#10806f] border-[#10806f] hover:bg-white text-white hover:text-black border-[1px] hover:border-black text-[14px] transition-colors duration-500"
+          className=" w-fit hidden md:flex gap-1 items-center p-1 px-3 font-inter font-medium bg-[#0ddf4e] border-[#0ddf4e] hover:bg-white text-white hover:text-black border-[1px] hover:border-black text-[14px] transition-colors duration-500"
         >
           <span>
             <svg
@@ -61,6 +64,7 @@ const handleAddOpen = () => setAddOpen((cur) => !cur);
           </span>
           <span>New Facility</span>
         </a>
+        </div>
       </div>
       <div className="mt-10">
         <div class="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
@@ -107,18 +111,19 @@ const handleAddOpen = () => setAddOpen((cur) => !cur);
                   </td>
 
                   <td className="p-4">
-                    <a
-                      href={`/drugs/${facility.idFacility}`}
-                      className="text-sm text-blue-700"
-                    >
-                      Edit
-                    </a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
+                  
                     <a
                       href={`/add-facility-users/${facility.idFacility}`}
                       className="text-sm text-blue-700"
                     >
-                      Add Users
+                      <Tooltip content="Add Users for Facility">
+                        <IconButton
+                          variant="text"
+                          className="mx-2 bg-gray-100 "
+                        >
+                          <AddUserIcon />
+                        </IconButton>
+                      </Tooltip>
                     </a>
                   </td>
                 </tr>
@@ -127,9 +132,9 @@ const handleAddOpen = () => setAddOpen((cur) => !cur);
           </table>
         </div>
       </div>
-      <AddWareHouseUsers 
-       closeUpdateStock={handleAddOpen} 
-       updateStockOpen={addOpen} 
+      <AddWareHouseUsers
+        closeUpdateStock={handleAddOpen}
+        updateStockOpen={addOpen}
       />
     </div>
   );

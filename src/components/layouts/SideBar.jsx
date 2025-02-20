@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, ListItem, ListItemPrefix } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import logo from "./../../assets/images/logo.png";
+import logo from "./../../assets/images/logoTwo.png";
 import { adminNavigationItems,pharmacyNavigationItems,manufacturingNavigationItems,warehouseNavigationItems } from "../../utils/dataArrays";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -31,7 +31,7 @@ export const SideBar = ({ handleSidebar, sidebar }) => {
     : [];
   return (
     <Card
-      className={`fade-right-enter-active scrollbar-y-style fixed z-50 flex h-full w-[60%] transform flex-col items-start overflow-y-auto rounded-none bg-[#212126] p-2 font-inter transition duration-500 ease-in-out md:w-[16%] md:opacity-100 ${
+      className={`fade-right-enter-active scrollbar-y-style fixed z-50 flex h-full w-[60%] transform flex-col items-start overflow-y-auto rounded-none bg-white p-2 font-inter transition duration-500 ease-in-out md:w-[16%] md:opacity-100 ${
         sidebar ? "fade-right-enter-to" : "fade-right-enter-from"
       } `}
     >
@@ -57,7 +57,7 @@ export const SideBar = ({ handleSidebar, sidebar }) => {
           </svg>
         </span>
       </div>
-      <li className="w-full list-none">
+      <li className="w-full list-none ">
         {navigationItems.map((item, itemIndex) => {
           return (
             <NavItem
@@ -104,11 +104,8 @@ console.log('currentUrl qw',currentUrl,link)
       <Link to={`${link !== "#" ? link : "#"}`}>
         <ListItem
           onClick={toggleChildren}
-          className={` ${currentUrl === link ? "bg-[#2fff24d5] text-white" : "text-white"} w-full rounded-sm text-[14px] font-bold hover:bg-[#2fff24d5] hover:text-white focus:bg-[#2fff24d5] focus:text-white active:bg-[#10806f]`}
+          className={` ${currentUrl === link ? "bg-[#1b609f] text-white " : "text-gray-700"} w-full rounded-lg font-extrabold  text-[14px]  hover:bg-[#1b609f] hover:text-white focus:bg-[#1b609f] focus:text-white active:bg-[#1b609f]`}
         >
-          <ListItemPrefix>
-            <NavIcon className="h-5 w-5" />
-          </ListItemPrefix>
           <span className="mr-2 flex-1 whitespace-nowrap font-normal">{title}</span>
           {children && children.length > 0 && (
             <span>
@@ -124,7 +121,7 @@ console.log('currentUrl qw',currentUrl,link)
 
       {/* Render children recursively if they exist */}
       {openChildren && Array.isArray(children) && children.length > 0 && (
-        <ul className="ml-4 border-l-2 border-[#2fff24d5]">
+        <ul className="ml-4 ">
           {children.map((child, index) => (
             <NavItem
               key={index}

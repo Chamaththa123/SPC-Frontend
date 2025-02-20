@@ -10,11 +10,11 @@ import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../contexts/UserContext";
 import { ToastContainer, toast } from "react-toastify";
 import Swal from "sweetalert2";
-import logo from "../assets/images/logo.png";
+import logo from "../assets/images/logoOne.png";
+import hero from "../assets/images/StockCake-Pharmacist organizing medications_1740021957.jpg";
 import axiosClient from "../../axios-client";
 
 export const SignUp = () => {
-  const { setUser, setToken } = useStateContext();
   const [alertMessage, setAlertMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const navigate = useNavigate();
@@ -93,115 +93,125 @@ export const SignUp = () => {
 
   return (
     <div className="flex h-screen items-center justify-center">
-      <Card className="w-[600px]">
-        <form onSubmit={handleRegister}>
-          <CardBody className="flex flex-col gap-4">
-            <div className="text-[25px] font-bold mb-10">
-              Supplier Registration
-            </div>
-            {showAlert && (
-              <div className="mb-4 rounded bg-red-500 px-4 py-2 text-white">
-                {alertMessage}
-              </div>
-            )}
-            <div className="md:flex gap-10">
-              <div className="w-full">
-                <label
-                  className="block text-sm font-medium text-gray-600"
-                  htmlFor="email"
-                >
-                  Name
-                </label>
-                <input
-                  className="mt-1 p-2 w-full border rounded-md text-[14px]"
-                  type="text"
-                  id="name"
-                  name="name"
-                  ref={nameRef}
-                />
-                {formErrors.name && (
-                  <span className="text-xs font-medium text-red-500">
-                    {formErrors.name}
-                  </span>
+      <div className="w-[50%]">
+        <div className="flex h-screen items-center justify-center">
+          <Card className="w-[80%]">
+            <CardHeader className="mb-4 mx-6 grid h-auto place-items-center">
+              <img src={logo} className="w-[65%] py-2" alt="Logo" />
+            </CardHeader>
+            <form onSubmit={handleRegister}>
+              <CardBody className="flex flex-col gap-4">
+                <div className="text-[25px] font-bold mb-10">
+                  Supplier Registration
+                </div>
+                {showAlert && (
+                  <div className="mb-4 rounded bg-red-500 px-4 py-2 text-white">
+                    {alertMessage}
+                  </div>
                 )}
-              </div>
-              <div className="w-full">
-                <label
-                  className="block text-sm font-medium text-gray-600"
-                  htmlFor="email"
-                >
-                  Contact No
-                </label>
-                <input
-                  className="mt-1 p-2 w-full border rounded-md text-[14px]"
-                  type="text"
-                  id="contact"
-                  name="contact"
-                  ref={contactRef}
-                />
-                {formErrors.contact && (
-                  <span className="text-xs font-medium text-red-500">
-                    {formErrors.contact}
-                  </span>
-                )}
-              </div>
-            </div>
+                <div className="md:flex gap-10">
+                  <div className="w-full">
+                    <label
+                      className="block text-sm font-medium "
+                      htmlFor="email"
+                    >
+                      Name
+                    </label>
+                    <input
+                      className="mt-1 p-2 w-full border rounded-md text-[14px]"
+                      type="text"
+                      id="name"
+                      name="name"
+                      ref={nameRef}
+                    />
+                    {formErrors.name && (
+                      <span className="text-xs font-medium text-red-500">
+                        {formErrors.name}
+                      </span>
+                    )}
+                  </div>
+                  <div className="w-full">
+                    <label
+                      className="block text-sm font-medium "
+                      htmlFor="email"
+                    >
+                      Contact No
+                    </label>
+                    <input
+                      className="mt-1 p-2 w-full border rounded-md text-[14px]"
+                      type="text"
+                      id="contact"
+                      name="contact"
+                      ref={contactRef}
+                    />
+                    {formErrors.contact && (
+                      <span className="text-xs font-medium text-red-500">
+                        {formErrors.contact}
+                      </span>
+                    )}
+                  </div>
+                </div>
 
-            <div className="flex gap-10">
-              <div className="w-full">
-                <label
-                  className="block text-sm font-medium text-gray-600"
-                  htmlFor="password"
-                >
-                  Email
-                </label>
-                <input
-                  className="mt-1 p-2 w-full border rounded-md text-[14px]"
-                  type="email"
-                  id="email"
-                  name="email"
-                  ref={emailRef}
-                />
-                {formErrors.email && (
-                  <span className="text-xs font-medium text-red-500">
-                    {formErrors.email}
-                  </span>
-                )}
-              </div>
-              <div className="w-full">
-                <label
-                  className="block text-sm font-medium text-gray-600"
-                  htmlFor="password"
-                >
-                  Password
-                </label>
-                <input
-                  className="mt-1 p-2 w-full border rounded-md text-[14px]"
-                  type="password"
-                  id="password"
-                  name="password"
-                  ref={passwordRef}
-                />
-                {formErrors.password && (
-                  <span className="text-xs font-medium text-red-500">
-                    {formErrors.password}
-                  </span>
-                )}
-              </div>
-            </div>
+                <div className="flex gap-10">
+                  <div className="w-full">
+                    <label
+                      className="block text-sm font-medium "
+                      htmlFor="password"
+                    >
+                      Email
+                    </label>
+                    <input
+                      className="mt-1 p-2 w-full border rounded-md text-[14px]"
+                      type="email"
+                      id="email"
+                      name="email"
+                      ref={emailRef}
+                    />
+                    {formErrors.email && (
+                      <span className="text-xs font-medium text-red-500">
+                        {formErrors.email}
+                      </span>
+                    )}
+                  </div>
+                  <div className="w-full">
+                    <label
+                      className="block text-sm font-medium "
+                      htmlFor="password"
+                    >
+                      Password
+                    </label>
+                    <input
+                      className="mt-1 p-2 w-full border rounded-md text-[14px]"
+                      type="password"
+                      id="password"
+                      name="password"
+                      ref={passwordRef}
+                    />
+                    {formErrors.password && (
+                      <span className="text-xs font-medium text-red-500">
+                        {formErrors.password}
+                      </span>
+                    )}
+                  </div>
+                </div>
 
-            <div className="flex justify-end">
-              <button
-                className="w-[100px] py-2  mt-5 font-bold text-white rounded-md hover:opacity-80 bg-[#0d6efd]"
-                type="submit"
-              >
-                Register
-              </button>
-            </div>
-          </CardBody>
-        </form>
-      </Card>
-      <ToastContainer />
+                <div className="flex justify-end">
+                  <button
+                    className="w-[100px] py-2  mt-5 font-bold text-white rounded-md hover:opacity-80 bg-[#1b609f]"
+                    type="submit"
+                  >
+                    Register
+                  </button>
+                </div>
+              </CardBody>
+            </form>
+          </Card>
+          <ToastContainer />
+        </div>
+      </div>
+      <div className="w-[50%]">
+        <img src={hero} className="w-[100%] h-screen" alt="Logo" />
+      </div>
     </div>
   );
 };

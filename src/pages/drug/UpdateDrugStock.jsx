@@ -124,7 +124,7 @@ const UpdateDrugStock = () => {
         <div className="mt-10 text-left">
           <button
             type="submit"
-            className="bg-[#0d6efd] rounded-md p-2 text-white text-[15px]"
+            className="bg-[#1b609f] rounded-md p-2 text-white text-[15px]"
             disabled={isSubmitting}
           >
             {isSubmitting ? "Updating..." : "Update Stock"}

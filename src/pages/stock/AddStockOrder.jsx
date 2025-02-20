@@ -172,7 +172,7 @@ const AddStockOrder = () => {
         <div className="mt-1 text-left">
           <button
             type="submit"
-            className="bg-[#0d6efd] rounded-md p-2 text-white text-[15px]"
+            className="bg-[#1b609f] rounded-md p-2 text-white text-[15px]"
             disabled={submitting}
           >
             {submitting ? "Saving..." : "Place Order"}

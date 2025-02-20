@@ -103,8 +103,15 @@ export const adminNavigationItems = [
 
 export const pharmacyNavigationItems = [
   {
-    title: "Stocks",
+    title: "Pharmacy Stocks",
     link: "/stocks",
+    icon: UserIcon,
+    priv_name: 0,
+    children: "",
+  },
+  {
+    title: "Pharmacy Orders",
+    link: "/orders",
     icon: UserIcon,
     priv_name: 0,
     children: "",

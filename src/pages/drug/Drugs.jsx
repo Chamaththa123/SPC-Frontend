@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axiosClient from "../../../axios-client";
 import Swal from "sweetalert2";
+import { EditNewIcon, OrderIcon, UpdateStockIcon } from "../../utils/icons";
+import { IconButton, Tooltip } from "@material-tailwind/react";
+import { useStateContext } from "../../contexts/UserContext";
 
 const Drugs = () => {
+
+  const {user} = useStateContext();
   const [drugs, setDrugs] = useState([]);
 
   useEffect(() => {
@@ -24,9 +29,10 @@ const Drugs = () => {
     <div>
       <div className="flex justify-between">
         <div className="text-[18px] font-semibold">All Drugs</div>
-        <a
+        {user.role !== 5 && (
+          <a
           href="/add-drugs"
-          className=" w-fit hidden md:flex gap-1 items-center p-1 px-3 font-inter font-medium bg-[#10806f] border-[#10806f] hover:bg-white text-white hover:text-black border-[1px] hover:border-black text-[14px] transition-colors duration-500"
+          className=" w-fit hidden md:flex gap-1 items-center p-1 px-3 font-inter font-medium bg-[#0ddf4e] border-[#0ddf4e] hover:bg-white text-white hover:text-black border-[1px] hover:border-black text-[14px] transition-colors duration-500"
         >
           <span>
             <svg
@@ -40,9 +46,10 @@ const Drugs = () => {
           </span>
           <span>New Drug</span>
         </a>
+        )}
       </div>
       <div className="mt-10">
-        <div class="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+        <div class="relative flex flex-col w-full h-full overflow-scroll-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
           <table className="w-full text-left table-auto min-w-max text-slate-800">
             <thead>
               <tr className="text-slate-500 border-b border-slate-300 bg-slate-50">
@@ -97,26 +104,42 @@ const Drugs = () => {
                     <p className="text-sm">{supplier.expiryDate}</p>
                   </td>
                   <td className="p-4">
-                    <a
-                      href={`/drugs/${supplier.idDrug}`}
-                      className="text-sm text-blue-700"
-                    >
-                      Edit
-                    </a>
+                   {user.role !== 5 && (
+                     <a
+                     href={`/drugs/${supplier.idDrug}`}
+                     className="text-sm text-blue-700"
+                   >
+                     <Tooltip content="Edit Drug Details">
+                       <IconButton variant="text" className="mx-2 bg-gray-100">
+                         <EditNewIcon />
+                       </IconButton>
+                     </Tooltip>
+                   </a>
+                   )}
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <a
                       href={`/drug/stock-update/${supplier.idDrug}`}
                       className="text-sm text-blue-700"
                     >
-                      Update Stock
+                     <Tooltip content="Update Stock">
+                        <IconButton variant="text" className="mx-2 bg-gray-100">
+                          <UpdateStockIcon />
+                        </IconButton>
+                      </Tooltip>
                     </a>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a
+                    {user.role !== 2 && (
+                      <a
                       href={`/drug/order-by-supplier/${supplier.idDrug}`}
                       className="text-sm text-blue-700"
                     >
-                      Add Order
+                     <Tooltip content="Place Drug Order">
+                        <IconButton variant="text" className="mx-2 bg-gray-100">
+                          <OrderIcon />
+                        </IconButton>
+                      </Tooltip>
                     </a>
+                    )}
                   </td>
                 </tr>
               ))}

@@ -53,7 +53,7 @@ const SupplierOrderList = () => {
     });
   };
   return (
-    <div>
+    <div className="m-8  rounded-lg p-5 mb-4">
       <div className="flex justify-between">
         <div className="text-[18px] font-semibold">All Orders</div>
        

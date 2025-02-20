@@ -3,6 +3,8 @@ import axiosClient from "../../../axios-client";
 import { useStateContext } from "../../contexts/UserContext";
 import AddStock from "./AddStock";
 import UpdateStock from "./UpdateStock";
+import { IconButton, Tooltip } from "@material-tailwind/react";
+import { OrderIcon, UpdateStockIcon } from "../../utils/icons";
 
 const Stocks = () => {
   const [stock, setStock] = useState([]);
@@ -39,10 +41,10 @@ const Stocks = () => {
   return (
     <div>
       <div className="flex justify-between">
-        <div className="text-[18px] font-semibold">All Pharmacy Stock</div>
+        <div className="text-[18px] font-semibold">Pharmacy Stock</div>
         <button
           onClick={handleAddStockOpen}
-          className="w-fit hidden md:flex gap-1 items-center p-1 px-3 font-inter font-medium bg-[#10806f] border-[#10806f] hover:bg-white text-white hover:text-black border-[1px] hover:border-black text-[14px] transition-colors duration-500"
+          className="w-fit hidden md:flex gap-1 items-center p-1 px-3 font-inter font-medium bg-[#0ddf4e] border-[#0ddf4e] hover:bg-white text-white hover:text-black border-[1px] hover:border-black text-[14px] transition-colors duration-500"
         >
           <span>
             <svg
@@ -82,14 +84,22 @@ const Stocks = () => {
                       onClick={() => openUpdateStock(stockItem)}
                       className="text-blue-600 hover:underline"
                     >
-                      Update Stock
+                      <Tooltip content="Update Stock">
+                                              <IconButton variant="text" className="mx-2 bg-gray-100">
+                                                <UpdateStockIcon />
+                                              </IconButton>
+                                            </Tooltip>
                     </button>
                     &nbsp;
                     &nbsp;
                     &nbsp;
                     &nbsp;
                     <a href={`add-stock-order/${stockItem.idStock}`}>
-                    Place Order
+                    <Tooltip content="Place Drug Order">
+                                            <IconButton variant="text" className="mx-2 bg-gray-100">
+                                              <OrderIcon />
+                                            </IconButton>
+                                          </Tooltip>
                     </a>
                   </td>
                 </tr>

@@ -133,7 +133,7 @@ const AddTender = () => {
             </div>
             <div className="w-full">
               <div>
-                <label className="block text-sm font-medium">Date</label>
+                <label className="block text-sm font-medium">Closing Date</label>
                 <Input
                   className="mt-1 p-2 w-full border rounded-md text-[14px]"
                   type="date"
@@ -165,7 +165,7 @@ const AddTender = () => {
         <div className="mt-10 text-left">
           <button
             type="submit"
-            className="bg-[#0d6efd] rounded-md p-2 text-white text-[15px]"
+            className="bg-[#1b609f] rounded-md p-2 text-white text-[15px]"
             disabled={submitting}
           >
             {submitting ? "Saving..." : "Add Tender"}

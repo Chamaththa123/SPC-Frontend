@@ -20,7 +20,6 @@ export const MainLayout = () => {
     setToken(null);
   };
 
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -94,6 +93,14 @@ export const MainLayout = () => {
           <div>
             <div className="flex items-center justify-between">
               <div className="relative" ref={dropdownRef}>
+                {user.role == 1 && <span className="text-sm">Admin</span>}
+                {user.role == 2 && (
+                  <span className="text-sm">Manufacturing Plant</span>
+                )}
+                {user.role == 3 && <span className="text-sm">Pharmacy</span>}
+                {user.role == 4 && <span className="text-sm">Supplier</span>}
+                {user.role == 5 && <span className="text-sm">WareHouse</span>}
+
                 <IconButton
                   variant="text"
                   className="bg-gray-500 mx-2 rounded-full"
@@ -104,7 +111,6 @@ export const MainLayout = () => {
 
                 {signOutVisible && (
                   <div className="absolute top-12 right-5 bg-white w-[150px] flex flex-col items-start p-3 z-10 shadow-md border-[1px] border-grey-800">
-
                     <div className="w-full" onClick={handleLogout}>
                       <div className="font-inter py-2 cursor-pointer">
                         Sign Out
@@ -117,7 +123,7 @@ export const MainLayout = () => {
           </div>
         </Card>
         <div className="bg-white ml-8 mr-4 rounded-lg p-5 mb-4">
-        <Outlet />
+          <Outlet />
         </div>
       </section>
     </section>

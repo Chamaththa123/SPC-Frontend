@@ -10,7 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../../contexts/UserContext";
 import { ToastContainer, toast } from "react-toastify";
 
-import logo from "../../assets/images/logo.png";
+import logo from "../../assets/images/logoOne.png";
+import hero from "../../assets/images/StockCake-Emergency Medicine Circle_1740021666.jpg";
 import axiosClient from "../../../axios-client";
 
 const SignIn = () => {
@@ -51,16 +52,21 @@ const SignIn = () => {
 
     try {
       const { data } = await axiosClient.post("/User/login", loginData);
-      console.log(data)
       setUser(data.user);
-      console.log(data.user)
       setToken(data.token);
-      if(data.user.role == 4){
+      if (data.user.role == 4) {
         navigate("/supplier/tender");
-      }else{
-        navigate("/");
+      } else if (data.user.role == 1) {
+        navigate("/drugs");
+      } else if (data.user.role == 3) {
+        navigate("/stocks");
+      } else if (data.user.role == 5) {
+        navigate("/drugs");
+      } else if (data.user.role == 2) {
+        navigate("/drugs");
+      } else {
+        navigate("/drugs");
       }
-      
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -78,73 +84,93 @@ const SignIn = () => {
 
   return (
     <div className="flex h-screen items-center justify-center">
-      <Card className="w-96">
-        <CardHeader className="mb-4 grid h-28 place-items-center">
-          <img src={logo} className="w-[95%]" alt="Logo" />
-        </CardHeader>
-        <form onSubmit={handleLogin}>
-          <CardBody className="flex flex-col gap-4">
-            {showAlert && (
-              <div className="mb-4 rounded bg-red-500 px-4 py-2 text-white">
-                {alertMessage}
-              </div>
-            )}
-            <div>
-              <label className="block text-sm font-medium text-gray-600" htmlFor="email">
-                Email
-              </label>
-              <input
-                className="mt-1 p-2 w-full border rounded-md text-[14px]"
-                type="text"
-                id="email"
-                name="email"
-                ref={emailRef}
-              />
-              {formErrors.email && (
-                <span className="text-xs font-medium text-red-500">{formErrors.email}</span>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-600" htmlFor="password">
-                Password
-              </label>
-              <input
-                className="mt-1 p-2 w-full border rounded-md text-[14px]"
-                type="password"
-                id="password"
-                name="password"
-                ref={passwordRef}
-              />
-              {formErrors.password && (
-                <span className="text-xs font-medium text-red-500">{formErrors.password}</span>
-              )}
-            </div>
-            <div className="flex justify-end">
-              <button
-                className="w-full py-2 font-bold text-white rounded-md hover:opacity-80 bg-gradient-to-r from-[#1b4172] to-[#1b4172]"
-                type="submit"
-              >
-                Sign In
-              </button>
-            </div>
-          </CardBody>
-          <CardFooter className="pt-0">
-            <Typography variant="small" className="mt-6 flex justify-center">
-              Do you want to register as supplier ?
-              <Typography
-                as="a"
-                href="/supplier-register"
-                variant="small"
-                color="blue-gray"
-                className="ml-1 font-bold"
-              >
-                Register here
-              </Typography>
-            </Typography>
-          </CardFooter>
-        </form>
-      </Card>
-      <ToastContainer />
+      <div className="w-[50%]">
+        <img src={hero} className="w-[100%] h-screen" alt="Logo" />
+      </div>
+      <div className="w-[50%]">
+        <div className="flex h-screen items-center justify-center">
+          <Card className="w-[65%]">
+            <CardHeader className="mb-4 grid h-28 place-items-center py-2">
+              <img src={logo} className="w-[70%]" alt="Logo" />
+            </CardHeader>
+            <form onSubmit={handleLogin}>
+              <CardBody className="flex flex-col gap-4">
+                {showAlert && (
+                  <div className="mb-4 rounded bg-red-500 px-4 py-2 text-white">
+                    {alertMessage}
+                  </div>
+                )}
+                <div>
+                  <label
+                    className="block text-sm font-medium text-gray-600"
+                    htmlFor="email"
+                  >
+                    Email
+                  </label>
+                  <input
+                    className="mt-1 p-2 w-full border rounded-md text-[14px]"
+                    type="text"
+                    id="email"
+                    name="email"
+                    ref={emailRef}
+                  />
+                  {formErrors.email && (
+                    <span className="text-xs font-medium text-red-500">
+                      {formErrors.email}
+                    </span>
+                  )}
+                </div>
+                <div>
+                  <label
+                    className="block text-sm font-medium text-gray-600"
+                    htmlFor="password"
+                  >
+                    Password
+                  </label>
+                  <input
+                    className="mt-1 p-2 w-full border rounded-md text-[14px]"
+                    type="password"
+                    id="password"
+                    name="password"
+                    ref={passwordRef}
+                  />
+                  {formErrors.password && (
+                    <span className="text-xs font-medium text-red-500">
+                      {formErrors.password}
+                    </span>
+                  )}
+                </div>
+                <div className="flex justify-end">
+                  <button
+                    className="w-full py-2 font-bold text-white rounded-md hover:opacity-80 bg-[#1b609f] mt-3"
+                    type="submit"
+                  >
+                    Sign In
+                  </button>
+                </div>
+              </CardBody>
+              <CardFooter className="pt-0">
+                <Typography
+                  variant="small"
+                  className="mt-3 flex justify-center font-normal"
+                >
+                  Do you want to register as supplier ?
+                  <Typography
+                    as="a"
+                    href="/supplier-register"
+                    variant="small"
+                    color="blue-gray"
+                    className="ml-1 font-bold"
+                  >
+                    Register here
+                  </Typography>
+                </Typography>
+              </CardFooter>
+            </form>
+          </Card>
+          <ToastContainer />
+        </div>
+      </div>
     </div>
   );
 };

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useStateContext } from "../../contexts/UserContext";
 import axiosClient from "../../../axios-client";
 import Swal from "sweetalert2";
+import { IconButton, Tooltip } from "@material-tailwind/react";
+import { UpdateStockIcon } from "../../utils/icons";
 
 const PharmacyOrderForFarmacy = () => {
   const { user } = useStateContext();
@@ -96,15 +98,8 @@ const PharmacyOrderForFarmacy = () => {
   return (
     <div>
       <div className="flex justify-between">
-        <div className="text-[18px] font-semibold">All Orders</div>
-        <button className="w-fit hidden md:flex gap-1 items-center p-1 px-3 font-inter font-medium bg-[#10806f] border-[#10806f] hover:bg-white text-white hover:text-black border-[1px] hover:border-black text-[14px] transition-colors duration-500">
-          <span>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
-              <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
-            </svg>
-          </span>
-          <span>Pharmacy Orders</span>
-        </button>
+        <div className="text-[18px] font-semibold">All Pharmacy Orders</div>
+        
       </div>
 
       <div className="mt-10">
@@ -160,13 +155,17 @@ const PharmacyOrderForFarmacy = () => {
                     {order.status === 2 && (
                       <button
                         onClick={() => updateStock(order)}
-                        className="bg-green-500 text-white px-3 py-1 text-sm rounded-md hover:bg-green-600 ml-2"
+                       
                       >
-                        Update Stock
+                        <Tooltip content="Update Stock">
+                                                                      <IconButton variant="text" className="mx-2 bg-gray-100">
+                                                                        <UpdateStockIcon />
+                                                                      </IconButton>
+                                                                    </Tooltip>
                       </button>
                     )}
                     {order.status === 3 && (
-                      <div className="text-[14px] text-green-700 font-semibold">
+                      <div className="text-sm text-green-600 font-semibold">
                         Stock Updated
                       </div>
                     )}

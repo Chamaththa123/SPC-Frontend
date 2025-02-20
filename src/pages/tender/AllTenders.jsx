@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axiosClient from "../../../axios-client";
 import Swal from "sweetalert2";
+import { IconButton, Tooltip } from "@material-tailwind/react";
+import { ChangeIcon, ViewIcon } from "../../utils/icons";
 
 const AllTenders = () => {
   const [tenders, setTenders] = useState([]);
@@ -51,7 +53,7 @@ const AllTenders = () => {
         <div className="text-[18px] font-semibold">All Tenders</div>
         <a
           href="/add-tender"
-          className="w-fit hidden md:flex gap-1 items-center p-1 px-3 font-inter font-medium bg-[#10806f] border-[#10806f] hover:bg-white text-white hover:text-black border-[1px] hover:border-black text-[14px] transition-colors duration-500"
+          className="w-fit hidden md:flex gap-1 items-center p-1 px-3 font-inter font-medium bg-[#0ddf4e] border-[#0ddf4e] hover:bg-white text-white hover:text-black border-[1px] hover:border-black text-[14px] transition-colors duration-500"
         >
           <span>
             <svg
@@ -102,12 +104,27 @@ const AllTenders = () => {
                       onClick={() =>
                         changeStatus(tender.idTender, tender.status)
                       }
-                      className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                     
                     >
-                      Change Status
+                      <Tooltip content="Change Status">
+                                              <IconButton
+                                                variant="text"
+                                                className="mx-2 bg-gray-100"
+                                              >
+                                                <ChangeIcon />
+                                              </IconButton>
+                                            </Tooltip>
                     </button>
 
-                    <a href={`/tender-submissions/${tender.idTender}`}>View Tender Submissions</a>
+                    <a href={`/tender-submissions/${tender.idTender}`}>
+                     <Tooltip content="View Tender Submissions">
+                                              <IconButton
+                                                variant="text"
+                                                className="mx-2 bg-gray-100"
+                                              >
+                                                <ViewIcon />
+                                              </IconButton>
+                                            </Tooltip></a>
                   </td>
                 </tr>
               ))}

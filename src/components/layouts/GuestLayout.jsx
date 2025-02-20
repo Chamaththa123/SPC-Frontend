@@ -11,7 +11,7 @@ export const GuestLayout = () => {
   }
 
   return (
-    <section className="bg-gray-100 flex min-h-screen w-full items-center justify-center ">
+    <section className="bg-gray-100 flex min-h-screen w-full">
       <Outlet />
     </section>
   );

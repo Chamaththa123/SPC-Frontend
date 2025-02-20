@@ -220,7 +220,7 @@ const AddStock = ({
             <div className="mt-10 text-left">
               <button
                 type="submit"
-                className="bg-[#0d6efd] rounded-md p-2 text-white text-[15px] font-medium"
+                className="bg-[#1b609f] rounded-md p-2 text-white text-[15px] font-medium"
                 disabled={submitting}
               >
                 {submitting ? "Saving..." : "Add New Drug Stock"}

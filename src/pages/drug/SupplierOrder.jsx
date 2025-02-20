@@ -10,6 +10,7 @@ const SupplierOrder = () => {
 
   const [drugDetails, setDrugDetails] = useState(null);
   const [tenderSupplierId, setTenderSupplierId] = useState(null);
+  const [supplierDetails, setSupplierDetails] = useState(null);
 
   const [formData, setFormData] = useState({
     drugId: id,
@@ -20,7 +21,6 @@ const SupplierOrder = () => {
     status: 0,
   });
 
-  console.log(formData);
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
 
@@ -43,21 +43,35 @@ const SupplierOrder = () => {
     axiosClient
       .get(`TenderSubmission/active-by-drug/${id}`)
       .then((res) => {
-        setTenderSupplierId(res.data);
+        setTenderSupplierId(res.data[0]); // Assuming it returns an array
       })
       .catch((error) => {
         console.error("Error fetching supplier id:", error);
       });
   }, [id]);
 
-  // Update formData only when drugDetails and tenderSupplierId are both available
+  // Fetch supplier details when tenderSupplierId is available
+  useEffect(() => {
+    if (!tenderSupplierId) return;
+
+    axiosClient
+      .get(`User/get-user-by-id/${tenderSupplierId}`)
+      .then((res) => {
+        setSupplierDetails(res.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching supplier details:", error);
+      });
+  }, [tenderSupplierId]);
+
+  // Update formData when all required data is available
   useEffect(() => {
     if (drugDetails && tenderSupplierId) {
       setFormData({
         drugId: id,
         drugCode: drugDetails.code,
         drugName: drugDetails.name,
-        supplierId: tenderSupplierId[0],
+        supplierId: tenderSupplierId,
         qty: 0,
         status: 0,
       });
@@ -67,7 +81,7 @@ const SupplierOrder = () => {
   // Validate form fields
   const validate = (data) => {
     const errors = {};
-    if (data.qty == 0) errors.name = "Quantity is required.";
+    if (data.qty === 0) errors.qty = "Quantity is required.";
     return errors;
   };
 
@@ -122,7 +136,7 @@ const SupplierOrder = () => {
     }
   };
 
-  if (!drugDetails ) {
+  if (!drugDetails) {
     return <div>Loading...</div>;
   }
 
@@ -131,8 +145,8 @@ const SupplierOrder = () => {
       <div className="text-[18px] font-semibold mb-10">
         Place New Order - {drugDetails.code} - {drugDetails.name}
       </div>
-      <div className="flex ">
-        <div class="flex w-full   overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+      <div className="flex">
+        <div className="flex w-full overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
           <table className="w-full text-left table-auto min-w-max text-slate-800">
             <thead>
               <tr className="text-slate-500 border-b border-slate-300 bg-slate-50">
@@ -140,22 +154,16 @@ const SupplierOrder = () => {
                   <p className="text-sm leading-none font-semibold">Id</p>
                 </th>
                 <th className="p-4">
-                  <p className="text-sm leading-none font-semibold">
-                    Drug Code
-                  </p>
+                  <p className="text-sm leading-none font-semibold">Drug Code</p>
                 </th>
                 <th className="p-4">
                   <p className="text-sm leading-none font-semibold">Name</p>
                 </th>
                 <th className="p-4">
-                  <p className="text-sm leading-none font-semibold">
-                    Description
-                  </p>
+                  <p className="text-sm leading-none font-semibold">Description</p>
                 </th>
                 <th className="p-4">
-                  <p className="text-sm leading-none font-semibold">
-                    Current Stock In
-                  </p>
+                  <p className="text-sm leading-none font-semibold">Current Stock In</p>
                 </th>
               </tr>
             </thead>
@@ -181,11 +189,20 @@ const SupplierOrder = () => {
           </table>
         </div>
       </div>
+{tenderSupplierId && (
+  <div className="my-10">
+  <div className="text-sm"><span className="font-semibold">Tender Approved Supplier:</span> {supplierDetails?.name} / {supplierDetails?.email} / {supplierDetails?.contact}</div>
+</div>
+)}
+
+{!tenderSupplierId && (
+  <div className="my-10 text-center">
+  <div className="text-sm text-red-500 font-bold">No Tender Approved Supplier</div>
+</div>
+)}
       <form onSubmit={handleSubmit}>
         <div className="w-[250px] mt-10">
-          <label className="block text-sm font-medium">
-            Add Ordered Quantity
-          </label>
+          <label className="block text-sm font-medium">Add Ordered Quantity</label>
           <Input
             className="mt-1 p-2 w-full border rounded-md text-[14px]"
             type="number"
@@ -193,20 +210,22 @@ const SupplierOrder = () => {
             value={formData.qty}
             onChange={handleChange}
           />
-          {errors.qty && (
-            <p className="text-red-500 text-sm mt-2">{errors.qty}</p>
-          )}
+          {errors.qty && <p className="text-red-500 text-sm mt-2">{errors.qty}</p>}
         </div>
-        <p className="text-gray-700 text-sm my-5">Once the order is placed, it will be sent to the approved supplier in the tender submission.</p>
-        <div className="mt-1 text-left">
+        <p className="text-gray-700 text-sm my-5">
+          Once the order is placed, it will be sent to the approved supplier in the tender submission.
+        </p>
+        {tenderSupplierId && (
+          <div className="mt-1 text-left">
           <button
             type="submit"
-            className="bg-[#0d6efd] rounded-md p-2 text-white text-[15px]"
+            className="bg-[#1b609f] rounded-md p-2 text-white text-[15px]"
             disabled={submitting}
           >
             {submitting ? "Saving..." : "Place Order"}
           </button>
         </div>
+        )}
       </form>
     </div>
   );

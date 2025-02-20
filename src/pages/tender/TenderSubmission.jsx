@@ -98,7 +98,7 @@ const TenderSubmission = () => {
   };
 
   return (
-    <div>
+    <div className="m-8  rounded-lg p-5 mb-4">
       <h6 className="mb-2 text-slate-800 text-xl font-semibold text-center">
         State Pharmaceutical Cooperation
       </h6>
